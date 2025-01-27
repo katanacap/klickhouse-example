@@ -1,0 +1,34 @@
+name: Check outdated dependencies
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  schedule:
+    - cron: '0 0 * * *'  # every day at 00:00
+
+  workflow_dispatch:
+
+jobs:
+  outdated:
+    runs-on: ubuntu-24.04
+    name: "Check outdated dependencies"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Rust (stable)
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: stable
+
+      - uses: Swatinem/rust-cache@v2
+
+      - name: Install cargo-outdated
+        run: cargo install cargo-outdated
+
+      - name: Check outdated
+        run: cargo outdated

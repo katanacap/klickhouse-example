@@ -1,0 +1,1 @@
+docker build -t klickhouse-example-img -f aarch64.Dockerfile .

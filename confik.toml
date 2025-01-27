@@ -1,0 +1,10 @@
+http_port = 1337
+log_level = "info"
+
+## dev clickhouse (this is can be changed on the production clickhouse by ENV variable's)
+clickhouse_host = "127.0.0.1"
+clickhouse_port = 9111
+clickhouse_user = "default"
+clickhouse_password = ""
+clickhouse_database = "default"
+clickhouse_pool_size = 15

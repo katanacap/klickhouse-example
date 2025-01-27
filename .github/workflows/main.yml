@@ -1,0 +1,133 @@
+name: Tests/Rustfmt/Clippy/Audit
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  ########################################################################
+  # Tests (Stable / Nightly / Minimal Supported Rust Version)
+  ########################################################################
+  tests:
+    name: Run tests - Rust (${{ matrix.rust }}) on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { rust: stable, os: ubuntu-24.04, jobname: "stable" }
+          - { rust: nightly-2025-01-19, os: ubuntu-24.04, jobname: "nightly" }
+    services:
+      clickhouse:
+        image: clickhouse/clickhouse-server:24.8.12.28
+        ports:
+          - 9111:9000
+        options: >-
+          --ulimit nofile=262144:262144
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: ${{ matrix.rust }}
+          components: rustfmt
+
+      - uses: Swatinem/rust-cache@v2
+
+      - name: Install cargo-nextest
+        uses: taiki-e/install-action@nextest
+
+      - name: Build with all features
+        run: cargo build --all-features
+      - name: Build
+        run: cargo build --workspace --verbose
+      - name: Run tests
+        run: cargo nextest run --workspace --all-features
+      - name: Clean
+        run: cargo clean
+  
+  ########################################################################
+  # Rustfmt (only nightly)
+  ########################################################################      
+  rustfmt:
+    name: Run rustfmt - Rust (${{ matrix.rust }}) on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { rust: nightly-2025-01-19, os: ubuntu-24.04 }
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: ${{ matrix.rust }}
+          components: rustfmt
+      - name: Check format
+        run: cargo +${{ matrix.rust }} fmt --all -- --check
+  
+  ########################################################################
+  # Clippy (only stable)
+  ########################################################################
+  clippy:
+    name: Run clippy - Rust (${{ matrix.rust }}) on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { rust: stable, os: ubuntu-24.04 }
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: ${{ matrix.rust }}
+          components: clippy
+
+      - uses: Swatinem/rust-cache@v2
+
+      - name: Check with clippy
+        run: cargo clippy --all
+
+  ########################################################################
+  # Audit
+  ########################################################################
+  audit:
+    name: Run audit - Rust (${{ matrix.rust }}) on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { rust: stable, os: ubuntu-24.04 }
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: ${{ matrix.rust }}
+      
+      - uses: Swatinem/rust-cache@v2
+
+      - name: Install cargo-audit
+        run: cargo install cargo-audit
+
+      - name: Check with audit
+        run: cargo audit
