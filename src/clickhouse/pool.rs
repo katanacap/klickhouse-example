@@ -87,7 +87,8 @@ mod tests {
         pool.run_migrations().await.unwrap();
         pool.check_pool().await.unwrap();
 
-        // let version = MigrationManager::get_current_version(&pool).await.unwrap();
-        // println!("Current version: {}", version);
+        let version = MigrationManager::get_current_version(&pool).await.unwrap();
+        println!("Current version: {}", version);
+        assert!(version > 0);
     }
 }

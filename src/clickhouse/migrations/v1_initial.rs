@@ -18,18 +18,13 @@ impl Migration for InitialMigration {
             let connection = pool.get_connection().await?;
             connection
                 .execute(
-                    "CREATE TABLE IF NOT EXISTS trades (
-                    market_type LowCardinality(String),
-                    symbol LowCardinality(String),
-                    trade_id UInt64,
-                    price Decimal(18, 8),
-                    quantity Decimal(18, 8),
-                    quote_quantity Decimal(18, 8),
-                    is_buyer_maker Boolean,
+                    "CREATE TABLE IF NOT EXISTS test_table (
+                    id UInt64,
+                    name String,
                     timestamp DateTime
                 ) ENGINE = MergeTree()
-                PARTITION BY (market_type, toYYYYMM(timestamp))
-                ORDER BY (market_type, symbol, timestamp)
+                PARTITION BY (toYYYYMM(timestamp))
+                ORDER BY (timestamp)
                 SETTINGS index_granularity = 8192;",
                 )
                 .await?;

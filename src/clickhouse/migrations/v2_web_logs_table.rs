@@ -18,10 +18,16 @@ impl Migration for LogsTableMigration {
             let connection = pool.get_connection().await?;
             connection
                 .execute(
-                    "CREATE TABLE IF NOT EXISTS logs (
-                    level LowCardinality(String),
-                    message String,
-                    timestamp DateTime
+                    "CREATE TABLE IF NOT EXISTS web_server_logs (
+                    timestamp       DateTime64(6, 'UTC'),
+                    level           LowCardinality(String),
+                    message         String,
+                    module          String,
+                    request_id      String,
+                    uri             String,
+                    method          String,
+                    status_code     Int32,
+                    response_time   Float64,
                 ) ENGINE = MergeTree()
                 PARTITION BY (toYYYYMM(timestamp))
                 ORDER BY (timestamp)

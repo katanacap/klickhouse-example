@@ -1,6 +1,6 @@
 // Migrations
 pub mod v1_initial;
-pub mod v2_logs_table;
+pub mod v2_web_logs_table;
 
 // External dependencies
 use std::collections::HashMap;
@@ -9,7 +9,6 @@ use std::pin::Pin;
 
 use eyre::{eyre, Result};
 use klickhouse::*;
-
 // Local dependencies
 use super::ClickhousePool;
 
@@ -46,7 +45,7 @@ impl MigrationManager {
 
     pub fn register_all_migrations(&mut self) {
         self.register_migration(Box::new(v1_initial::InitialMigration));
-        self.register_migration(Box::new(v2_logs_table::LogsTableMigration));
+        self.register_migration(Box::new(v2_web_logs_table::LogsTableMigration));
     }
 
     /// Register a new migration
@@ -77,7 +76,6 @@ impl MigrationManager {
             .into_iter()
             .map(|m| m.version)
             .collect::<Vec<i32>>();
-        println!("Migrations: {:?}", applied_versions);
 
         // Get all registered migrations
         let mut pending_versions: Vec<i32> = self.migrations.keys().cloned().collect();
@@ -123,14 +121,18 @@ impl MigrationManager {
     }
 
     // Get current database version
-    // pub async fn get_current_version(pool: &ClickhousePool) -> Result<i32> {
-    //     let connection = pool.get_connection().await?;
+    pub async fn get_current_version(pool: &ClickhousePool) -> Result<i32> {
+        let connection = pool.get_connection().await?;
 
-    //     let version: i32 = connection
-    //         .query_one("select max(version) as version from schema_migrations;")
-    //         .await?
-    //         .get("version")?;
+        #[derive(Row)] // Row for mapping
+        struct VersionRow {
+            version: i32,
+        }
 
-    //     Ok(version)
-    // }
+        let result = connection
+            .query_one::<VersionRow>("select max(version) as version from schema_migrations;")
+            .await?;
+
+        Ok(result.version)
+    }
 }

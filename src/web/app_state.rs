@@ -1,6 +1,8 @@
 use eyre::{eyre, Result};
 
-use crate::clickhouse::pool::ClickhousePool;
+use crate::clickhouse::ClickhouseLogger;
+use crate::clickhouse::ClickhousePool;
+
 use crate::config::AppConfig;
 
 #[derive(Debug, Clone)]
@@ -8,15 +10,18 @@ use crate::config::AppConfig;
 pub struct AppState {
     clickhouse_pool: ClickhousePool,
     config: AppConfig,
+    ch_logger: ClickhouseLogger,
 }
 
 impl AppState {
     pub async fn build(config: AppConfig) -> Result<Self> {
         let clickhouse_pool = Self::connect_clickhouse(&config).await?;
+        let ch_logger = ClickhouseLogger::new(&clickhouse_pool);
 
         Ok(Self {
             clickhouse_pool,
             config,
+            ch_logger,
         })
     }
 
@@ -32,5 +37,9 @@ impl AppState {
 
     pub fn config(&self) -> &AppConfig {
         &self.config
+    }
+
+    pub fn ch_logger(&self) -> &ClickhouseLogger {
+        &self.ch_logger
     }
 }
