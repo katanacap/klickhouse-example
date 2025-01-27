@@ -13,15 +13,16 @@ use crate::web::global_panic_handler::setup_global_panic_handler;
 use crate::web::handlers::{fail_endpoint, health, index};
 
 pub async fn run_serve(config: AppConfig) -> Result<actix_web::dev::Server> {
-    let app_state = web::Data::new(AppState::build(config).await?);
-    setup_global_panic_handler(app_state.clone());
+    let app_state = AppState::build(config).await?;
+    let data_app_state = web::Data::new(app_state.clone());
+    setup_global_panic_handler(data_app_state.clone());
 
     let port = app_state.config().http_port;
     let addr = format!("0.0.0.0:{}", port);
 
     let server = HttpServer::new(move || {
         App::new()
-            .app_data(app_state.clone())
+            .app_data(data_app_state.clone())
             .wrap(TracingLogger::default())
             .wrap(NormalizePath::new(
                 actix_web::middleware::TrailingSlash::Trim,

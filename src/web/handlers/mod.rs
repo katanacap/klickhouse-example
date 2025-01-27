@@ -1,14 +1,10 @@
-use actix_web::{get, HttpResponse, Responder};
+use crate::web::app_state::AppState;
+use actix_web::{get, web, HttpResponse, Responder};
 use tracing_actix_web::RequestId;
 
 #[get("/")]
 pub async fn index(request_id: RequestId) -> impl Responder {
     format!("request_id: {}", request_id)
-}
-
-#[get("/health")]
-pub async fn health() -> impl Responder {
-    "I'm alive!"
 }
 
 #[get("/fail")]
@@ -18,4 +14,12 @@ pub async fn fail_endpoint() -> impl Responder {
     let result: Option<&str> = None;
     let value = result.unwrap();
     HttpResponse::Ok().body(format!("Value: {}", value))
+}
+
+#[get("/health")]
+pub async fn health(app_state: web::Data<AppState>) -> impl Responder {
+    match app_state.check_clickhouse_connection().await {
+        Ok(_) => HttpResponse::Ok().body("I'm alive!"),
+        Err(e) => HttpResponse::InternalServerError().body(format!("Error: {}", e)),
+    }
 }

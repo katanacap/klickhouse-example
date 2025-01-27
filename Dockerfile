@@ -54,7 +54,7 @@ RUN --mount=type=cache,target=/app/target \
 FROM scratch
 
 # Copy compiled application
-COPY --from=builder /app/target/x86_64-unknown-linux-musl/release/klickhouse_example /klickhouse_example
+COPY --from=builder /app/klickhouse_example /klickhouse_example
 # Copy application config
 COPY ./confik.toml .
 

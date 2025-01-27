@@ -53,7 +53,9 @@ RUN --mount=type=cache,target=/app/target \
 FROM scratch
 
 # copy compiled application
-COPY --from=builder /app/target/aarch64-unknown-linux-musl/release/klickhouse_example /klickhouse_example
+COPY --from=builder /app/klickhouse_example /klickhouse_example
+# Copy application config
+COPY ./confik.toml .
 
 # specify that the application is started as PID 1
 ENTRYPOINT ["/klickhouse_example"]
