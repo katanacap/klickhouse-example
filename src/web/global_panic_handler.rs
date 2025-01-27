@@ -16,8 +16,6 @@ pub fn setup_global_panic_handler(app_state: Data<AppState>) {
             .map(ToString::to_string)
             .unwrap_or_else(|| "Unknown panic".to_string());
 
-        println!("Global panic handler called #2");
-
         tokio::task::spawn(async move {
             // Create log
             let log = WebServerLog {
@@ -31,8 +29,6 @@ pub fn setup_global_panic_handler(app_state: Data<AppState>) {
                 status_code: 500,
                 response_time: 0.0,
             };
-
-            println!("Global panic handler called #3");
 
             // Write log to Clickhouse
             if let Err(e) = app_state.ch_logger().log(log).await {

@@ -32,7 +32,13 @@ impl AppState {
             .await
             .map_err(|e| eyre!("Failed to connect to Clickhouse: {}", e))?;
 
+        pool.check_pool().await?;
+
         Ok(pool)
+    }
+
+    pub async fn check_clickhouse_connection(&self) -> Result<()> {
+        self.clickhouse_pool.check_pool().await
     }
 
     pub fn config(&self) -> &AppConfig {
