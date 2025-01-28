@@ -1,3 +1,7 @@
+pub mod get_logs_handler;
+
+pub use get_logs_handler::get_logs;
+
 use crate::web::app_state::AppState;
 use actix_web::{get, web, HttpResponse, Responder};
 use tracing_actix_web::RequestId;

@@ -41,6 +41,10 @@ impl AppState {
         self.clickhouse_pool.check_pool().await
     }
 
+    pub fn clickhouse_pool(&self) -> &ClickhousePool {
+        &self.clickhouse_pool
+    }
+
     pub fn config(&self) -> &AppConfig {
         &self.config
     }

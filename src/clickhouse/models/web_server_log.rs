@@ -1,7 +1,8 @@
 use chrono::Utc;
 use klickhouse::Row;
+use serde::{Deserialize, Serialize};
 
-#[derive(Row, Debug)]
+#[derive(Row, Debug, Serialize, Deserialize)]
 pub struct WebServerLog {
     pub timestamp: chrono::DateTime<Utc>,
     pub level: String,

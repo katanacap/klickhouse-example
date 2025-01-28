@@ -97,7 +97,7 @@ impl MigrationManager {
                 let migration = self.migrations.get(&version).unwrap();
 
                 // Log migration start
-                println!("Running migration v{}: {}", version, migration.name());
+                tracing::info!("Running migration v{}: {}", version, migration.name());
 
                 // Run migration
                 migration.apply(pool).await?;
@@ -116,7 +116,7 @@ impl MigrationManager {
             }
         }
 
-        println!("All migrations applied successfully!");
+        tracing::info!("All migrations applied successfully!");
         Ok(())
     }
 

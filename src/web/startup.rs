@@ -1,5 +1,5 @@
 use actix_web::middleware::NormalizePath;
-use actix_web::{web, App, HttpServer};
+use actix_web::{web, App, HttpResponse, HttpServer};
 use eyre::Result;
 use tracing_actix_web::TracingLogger;
 
@@ -10,7 +10,8 @@ use crate::web::middleware::ClickhouseLogger;
 
 use crate::web::app_state::AppState;
 use crate::web::global_panic_handler::setup_global_panic_handler;
-use crate::web::handlers::{fail_endpoint, health, index};
+// handlers
+use crate::web::handlers::{fail_endpoint, get_logs, health, index};
 
 pub async fn run_serve(config: AppConfig) -> Result<actix_web::dev::Server> {
     let app_state = AppState::build(config).await?;
@@ -20,20 +21,25 @@ pub async fn run_serve(config: AppConfig) -> Result<actix_web::dev::Server> {
     let port = app_state.config().http_port;
     let addr = format!("0.0.0.0:{}", port);
 
-    let server = HttpServer::new(move || {
-        App::new()
-            .app_data(data_app_state.clone())
-            .wrap(TracingLogger::default())
-            .wrap(NormalizePath::new(
-                actix_web::middleware::TrailingSlash::Trim,
-            ))
-            .wrap(ClickhouseLogger)
-            .service(index)
-            .service(health)
-            .service(fail_endpoint)
-    })
-    .bind(addr)?
-    .run();
+    let server =
+        HttpServer::new(move || {
+            App::new()
+                .app_data(data_app_state.clone())
+                .wrap(TracingLogger::default())
+                .wrap(NormalizePath::new(
+                    actix_web::middleware::TrailingSlash::Trim,
+                ))
+                .wrap(ClickhouseLogger)
+                .service(index)
+                .service(health)
+                .service(fail_endpoint)
+                .service(get_logs)
+                .default_service(web::route().to(|| async {
+                    HttpResponse::NotFound().body("Oops! This route does not exist.")
+                }))
+        })
+        .bind(addr)?
+        .run();
 
     Ok(server)
 }

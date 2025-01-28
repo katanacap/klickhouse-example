@@ -17,7 +17,7 @@ impl ClickhouseLogger {
     }
 
     pub async fn log(&self, log: WebServerLog) -> Result<()> {
-        println!("Logging to Clickhouse: {:?}", log);
+        tracing::debug!("Logging to Clickhouse: {:?}", log);
 
         let connection = self
             .clickhouse_pool
@@ -31,7 +31,7 @@ impl ClickhouseLogger {
             .map_err(|e| eyre!("Failed to write log to ClickHouse: {}", e));
 
         if let Err(e) = result {
-            println!("Error: {:?}", e);
+            tracing::error!("Error: {:?}", e);
         }
 
         Ok(())

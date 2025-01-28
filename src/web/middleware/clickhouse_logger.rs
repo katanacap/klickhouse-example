@@ -1,6 +1,8 @@
 use actix_web::{
+    body::{BoxBody, MessageBody},
     dev::{Service, ServiceRequest, ServiceResponse, Transform},
-    Error, HttpMessage,
+    web::Bytes,
+    Error, HttpMessage, HttpResponse,
 };
 use futures::future::{ok, Ready};
 use std::{
@@ -20,10 +22,9 @@ pub struct ClickhouseLogger;
 impl<S, B> Transform<S, ServiceRequest> for ClickhouseLogger
 where
     S: Service<ServiceRequest, Response = ServiceResponse<B>, Error = Error> + 'static,
-    S::Future: 'static,
-    B: 'static,
+    B: MessageBody + 'static,
 {
-    type Response = ServiceResponse<B>;
+    type Response = ServiceResponse<BoxBody>;
     type Error = Error;
     type Transform = ClickhouseLoggerMiddleware<S>;
     type InitError = ();
@@ -43,10 +44,9 @@ pub struct ClickhouseLoggerMiddleware<S> {
 impl<S, B> Service<ServiceRequest> for ClickhouseLoggerMiddleware<S>
 where
     S: Service<ServiceRequest, Response = ServiceResponse<B>, Error = Error> + 'static,
-    S::Future: 'static,
-    B: 'static,
+    B: MessageBody + 'static,
 {
-    type Response = ServiceResponse<B>;
+    type Response = ServiceResponse<BoxBody>;
     type Error = Error;
     type Future = Pin<Box<dyn std::future::Future<Output = Result<Self::Response, Self::Error>>>>;
 
@@ -75,33 +75,54 @@ where
                     match result {
                         Ok(res) => {
                             // Успешный запрос
+                            let (req_head, http_resp) = res.into_parts();
+
                             let duration = start_time.elapsed();
-                            let request_id = res
-                                .request()
+                            let request_id = req_head
                                 .extensions()
                                 .get::<RequestId>()
                                 .map(|id| id.to_string())
                                 .unwrap_or_default();
 
-                            let uri = res.request().uri().to_string();
-                            let method = res.request().method().to_string();
-                            let status_code = res.status().as_u16() as i32;
+                            let uri = req_head.uri().to_string();
+                            let method = req_head.method().to_string();
+                            let status_code = http_resp.status();
+
+                            let body_bytes_result =
+                                actix_web::body::to_bytes(http_resp.into_body()).await;
+                            let message = match body_bytes_result {
+                                Ok(ref bytes) => format!(
+                                    "Request processed. Body: {}",
+                                    String::from_utf8_lossy(bytes)
+                                ),
+                                Err(_) => "Request processed. Failed to read body.".to_string(),
+                            };
 
                             let log = WebServerLog {
                                 timestamp: chrono::Utc::now(),
                                 level: "INFO".to_string(),
-                                message: "Request processed".to_string(),
+                                message,
                                 module: "web_server".to_string(),
                                 request_id,
                                 uri,
                                 method,
-                                status_code,
+                                status_code: status_code.as_u16() as i32,
                                 response_time: duration.as_secs_f64(),
                             };
 
                             let _ = app_state.ch_logger().log(log).await;
 
-                            Ok(res)
+                            let new_body = match body_bytes_result {
+                                Ok(ref b) => b.clone(),
+                                Err(_) => Bytes::new(),
+                            };
+
+                            let new_http_response = HttpResponse::build(status_code).body(new_body);
+                            let new_srv_response =
+                                ServiceResponse::new(req_head, new_http_response)
+                                    .map_into_boxed_body();
+
+                            Ok(new_srv_response)
                         }
                         Err(e) => {
                             // Ошибка от следующего middleware/handler

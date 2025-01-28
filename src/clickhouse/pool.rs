@@ -3,6 +3,7 @@ use klickhouse::*;
 
 use super::config::ClickhouseConfig;
 use super::migrations::MigrationManager;
+use super::queries::LogsQueries;
 
 // Queries
 // use super::queries::trades_queries::TradesQueries;
@@ -51,7 +52,7 @@ impl ClickhousePool {
             .map_err(|e| eyre!("Failed to check Clickhouse connection: {}", e))?;
 
         if result.0 == 1 {
-            println!("Clickhouse connection is getting ok");
+            tracing::info!("Clickhouse connection is getting ok");
         } else {
             return Err(eyre!("Failed to check Clickhouse connection"));
         }
@@ -67,10 +68,11 @@ impl ClickhousePool {
         Ok(())
     }
 
-    // pub async fn get_trades_queries(&self) -> Result<TradesQueries> {
-    //     let connection = self.get_connection().await?;
-    //     Ok(TradesQueries::new(connection))
-    // }
+    // Queries
+    pub async fn get_logs_queries(&self) -> Result<LogsQueries> {
+        let connection = self.get_connection().await?;
+        Ok(LogsQueries::new(connection))
+    }
 }
 
 #[cfg(test)]
@@ -88,7 +90,6 @@ mod tests {
         pool.check_pool().await.unwrap();
 
         let version = MigrationManager::get_current_version(&pool).await.unwrap();
-        println!("Current version: {}", version);
         assert!(version > 0);
     }
 }

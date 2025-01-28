@@ -4,7 +4,7 @@ use std::panic;
 
 pub fn setup_global_panic_handler(app_state: Data<AppState>) {
     panic::set_hook(Box::new(move |info| {
-        println!("Global panic handler called");
+        tracing::error!("Global panic handler called");
         let app_state = app_state.clone();
 
         let location = info
@@ -32,7 +32,7 @@ pub fn setup_global_panic_handler(app_state: Data<AppState>) {
 
             // Write log to Clickhouse
             if let Err(e) = app_state.ch_logger().log(log).await {
-                eprintln!("Failed to log panic to ClickHouse: {:?}", e);
+                tracing::error!("Failed to log panic to ClickHouse: {:?}", e);
             }
         });
     }));
