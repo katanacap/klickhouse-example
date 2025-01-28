@@ -1,4 +1,4 @@
-# Actix Web + Klickhouse Example 🚀
+# Klickhouse Example + Actix Web 🚀
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Rust Version](https://img.shields.io/badge/Rust-1.83%2B-blue.svg)](https://www.rust-lang.org/)
