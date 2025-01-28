@@ -82,10 +82,10 @@ A sample **Actix Web** application demonstrating integration with **ClickHouse**
 ### Docker build 🐳
 ```shell
 # x86_64
-docker build -t klickhouse-example:latest .
+docker build -t klickhouse-example .
 
 # ARM64
-docker build -t klickhouse-example:arm64 -f aarch64.Dockerfile .
+docker build -t klickhouse-example -f aarch64.Dockerfile .
 ```
 
 ## Contributing 🤝
