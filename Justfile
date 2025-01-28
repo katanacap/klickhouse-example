@@ -14,6 +14,12 @@ check:
     @echo "==> Running tests with nextest..."
     cargo nextest run --workspace --all-features
 
+    @echo "==> Running audit..."
+    cargo audit
+
+    @echo "==> Checking outdated dependencies..."
+    cargo outdated
+
     @echo "All checks passed!"
 
 # Code formatting
