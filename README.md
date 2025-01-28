@@ -10,7 +10,7 @@ A sample **Actix Web** application demonstrating integration with **ClickHouse**
 
 ---
 
-## Features
+## Features ✨
 
 1. **Actix Web**  
    - Route handling (e.g., `GET`, `POST`)
@@ -62,17 +62,20 @@ A sample **Actix Web** application demonstrating integration with **ClickHouse**
    ```
 
 
-### API Endpoints 📡:
-- GET /: example endpoint to check request id logic
-- GET /logs: Fetch logs from ClickHouse (optional query params for pagination).
-- GET /health: Basic health check.
-- GET /fail: Example endpoint that triggers an error or panic for demonstration.
+### API Endpoints 📡
 
-### CLI Commands
+| Endpoint     | Method	  | Description                   | Example                             |
+|--------------|----------|-------------------------------|-------------------------------------|
+| `/`          | GET      | Demo endpoint with request ID | `curl http://localhost:1337`        |
+| `/health`    | GET      | More Text                     | `curl http://localhost:1337/health` |
+| `/logs`      | GET      | Get paginated logs            | `curl "http://localhost:1337/logs?limit=5&offset=0"` |
+| `/fail`      | GET      | Trigger handle panic example  | `curl http://localhost:1337/fail` |
+
+### CLI Commands 🛠️
 - `cargo run migrate`: Run ClickHouse migrations.
 - `cargo run serve`: Run the web server.
 
-### Configuration
+### Configuration 🛠️
 - `confik.toml`: Configuration file for the application.
 - `.env`: Environment variables for the application (optional).
 
@@ -85,10 +88,10 @@ docker build -t klickhouse-example:latest .
 docker build -t klickhouse-example:arm64 -f aarch64.Dockerfile .
 ```
 
-## Contributing
+## Contributing 🤝
 
 Feel free to open issues or PRs to improve this example — whether adding features or refining best practices. All suggestions are welcome!
 
-## License
+## License 📄
 
 This project is open-sourced under the MIT License - see the [LICENSE](LICENSE) file for details.
