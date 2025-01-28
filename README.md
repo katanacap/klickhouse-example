@@ -1,4 +1,10 @@
-# Actix Web + Klickhouse Example
+# Actix Web + Klickhouse Example 🚀
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Rust Version](https://img.shields.io/badge/Rust-1.83%2B-blue.svg)](https://www.rust-lang.org/)
+[![Actix Web](https://img.shields.io/badge/Actix%20Web-4.9-brightgreen.svg)](https://actix.rs/)
+[![ClickHouse](https://img.shields.io/badge/ClickHouse-24.3.7%2B-orange.svg)](https://clickhouse.com/)
+![CI Status](https://img.shields.io/badge/build-passing-brightgreen)
 
 A sample **Actix Web** application demonstrating integration with **ClickHouse** using the [klickhouse](https://github.com/katanacap/klickhouse) library. This example covers essential aspects of building a web service in Rust, including routing, middleware, and database connectivity.
 
@@ -24,8 +30,8 @@ A sample **Actix Web** application demonstrating integration with **ClickHouse**
 
 ## Getting Started
 
-### Prerequisites
-- **Devenv** (for running the application under development environment)
+### Prerequisites 🛠️
+- **Devenv** - https://devenv.sh/ (for running the application under development environment)
 
 ### Installation
 
@@ -46,9 +52,17 @@ A sample **Actix Web** application demonstrating integration with **ClickHouse**
 3. **Access the application**:
    - Open your browser and navigate to `http://localhost:1337/health` to check if the application is running.
    - Open your browser and navigate to `http://localhost:1337/logs?limit=10&offset=0` to view the logs.
+  
+4. **Run tests + all rust checks**:
+   ```bash
+   // cargo test/fmt/clippy/audit/outdated
+   just
+   // only tests
+   just test
+   ```
 
 
-### Endpoints:
+### API Endpoints 📡:
 - GET /: example endpoint to check request id logic
 - GET /logs: Fetch logs from ClickHouse (optional query params for pagination).
 - GET /health: Basic health check.
@@ -62,14 +76,13 @@ A sample **Actix Web** application demonstrating integration with **ClickHouse**
 - `confik.toml`: Configuration file for the application.
 - `.env`: Environment variables for the application (optional).
 
-### Docker build
+### Docker build 🐳
 ```shell
-docker build -t klickhouse_example .
-```
+# x86_64
+docker build -t klickhouse-example:latest .
 
-### Docker build for aarch64
-```shell
-docker build -t klickhouse-example-img -f aarch64.Dockerfile .
+# ARM64
+docker build -t klickhouse-example:arm64 -f aarch64.Dockerfile .
 ```
 
 ## Contributing
