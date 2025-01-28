@@ -67,7 +67,7 @@ A sample **Actix Web** application demonstrating integration with **ClickHouse**
 | Endpoint     | Method	  | Description                   | Example                             |
 |--------------|----------|-------------------------------|-------------------------------------|
 | `/`          | GET      | Demo endpoint with request ID | `curl http://localhost:1337`        |
-| `/health`    | GET      | More Text                     | `curl http://localhost:1337/health` |
+| `/health`    | GET      | Healthcheck                   | `curl http://localhost:1337/health` |
 | `/logs`      | GET      | Get paginated logs            | `curl "http://localhost:1337/logs?limit=5&offset=0"` |
 | `/fail`      | GET      | Trigger handle panic example  | `curl http://localhost:1337/fail` |
 
