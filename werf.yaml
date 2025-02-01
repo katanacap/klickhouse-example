@@ -1,13 +1,9 @@
+configVersion: 1
 project: klickhouse-example
 
-configVersion: 1
 
 ---
 image: klickhouse-example
-dockerfile: Dockerfile
-
----
-deploy:
-  helmChartDir: .helm
-  values:
-    - .helm/values.yaml
+dockerfile: ./x86.Dockerfile
+platform:
+- linux/amd64

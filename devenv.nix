@@ -46,4 +46,5 @@
   # };
 
   env.CLICKHOUSE_ADDR = "127.0.0.1:9111";
+  env.DOCKERFILE_NAME = "aarch64.Dockerfile"; # for local development on mac aarch64
 }

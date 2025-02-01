@@ -4,4 +4,3 @@ giterminismConfigVersion: 1
 giterminism:
   config:
     allowUncommitted: true
-    
