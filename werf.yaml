@@ -1,0 +1,13 @@
+project: klickhouse-example
+
+configVersion: 1
+
+---
+image: klickhouse-example
+dockerfile: Dockerfile
+
+---
+deploy:
+  helmChartDir: .helm
+  values:
+    - .helm/values.yaml

@@ -13,6 +13,11 @@
       pkgs.cargo-audit
       pkgs.just
       pkgs.tree
+      pkgs.werf
+      pkgs.kubernetes-helm
+      pkgs.vault-medusa
+      # pkgs.vault-bin
+      # pkgs.ngrok
   ] ++ lib.optionals pkgs.stdenv.isDarwin (with pkgs.darwin.apple_sdk; [
        frameworks.SystemConfiguration
        frameworks.Security

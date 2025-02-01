@@ -1,0 +1,7 @@
+configVersion: 1
+
+---
+giterminism:
+  config:
+    allowUncommitted: true
+    
