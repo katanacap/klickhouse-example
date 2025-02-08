@@ -13,6 +13,11 @@
       pkgs.cargo-audit
       pkgs.just
       pkgs.tree
+      pkgs.werf
+      pkgs.kubernetes-helm
+      pkgs.vault-medusa
+      # pkgs.vault-bin
+      # pkgs.ngrok
   ] ++ lib.optionals pkgs.stdenv.isDarwin (with pkgs.darwin.apple_sdk; [
        frameworks.SystemConfiguration
        frameworks.Security
@@ -41,4 +46,5 @@
   # };
 
   env.CLICKHOUSE_ADDR = "127.0.0.1:9111";
+  env.DOCKERFILE_NAME = "aarch64.Dockerfile"; # for local development on mac aarch64
 }

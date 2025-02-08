@@ -1,0 +1,9 @@
+configVersion: 1
+project: klickhouse-example
+
+
+---
+image: klickhouse-example
+dockerfile: ./x86.Dockerfile
+platform:
+- linux/amd64
