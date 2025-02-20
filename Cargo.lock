@@ -1342,7 +1342,7 @@ dependencies = [
  "compiler-tools-derive",
  "futures-util",
  "indexmap",
- "klickhouse_derive",
+ "klickhouse_derive 0.13.0",
  "log",
  "lz4",
  "paste",
@@ -1371,7 +1371,7 @@ dependencies = [
  "futures",
  "futures-util",
  "klickhouse",
- "klickhouse_derive",
+ "klickhouse_derive 0.14.2",
  "pretty_assertions",
  "serde",
  "serde_json",
@@ -1387,6 +1387,16 @@ dependencies = [
 name = "klickhouse_derive"
 version = "0.13.0"
 source = "git+https://github.com/katanacap/klickhouse.git?tag=v1.14.1#98215a1e1b3564af0d09b3c3e8b8ab217ca98fb5"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
+name = "klickhouse_derive"
+version = "0.14.2"
+source = "git+https://github.com/katanacap/klickhouse.git?tag=v1.14.2#fd33ed7c88afadb795be86501dec3ebe17675793"
 dependencies = [
  "proc-macro2",
  "quote",
