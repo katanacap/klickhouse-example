@@ -45,6 +45,8 @@ clap = { version = "4.5.32", features = ["derive"] }
 futures = "0.3.31"
 futures-util = "0.3.31"
 
+ring = "=0.17.14"
+
 
 [dev-dependencies]
 actix-web-test = "0.0.1"
