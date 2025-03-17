@@ -32,7 +32,7 @@ eyre = "0.6.12"
 thiserror = "2.0.12"
 
 ## config
-confik = "0.12.0"
+confik = "0.13.0"
 
 ## json
 serde = { version = "1.0.219", features = ["derive"] }
