@@ -656,23 +656,23 @@ dependencies = [
 
 [[package]]
 name = "confik"
-version = "0.12.0"
+version = "0.13.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fcb80c5315aacb4f2a7ef6ddb6b2fe7818191e78098f5ac597372647b9958039"
+checksum = "b50a137a3bfb796486971f6bb438f4b0b268a3441e444f93fada9627097e617d"
 dependencies = [
  "cfg-if",
  "confik-macros",
  "envious",
  "serde",
- "thiserror 1.0.69",
+ "thiserror 2.0.12",
  "toml",
 ]
 
 [[package]]
 name = "confik-macros"
-version = "0.12.0"
+version = "0.13.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "370f641e4f578df8c52e7c37300d5d9d2b12be6fb6f4732b62a794e2b647d1a2"
+checksum = "b12ac67ff6543df9d784c9e5bbbd8fb144273ec59171115ba6ab491707603902"
 dependencies = [
  "darling",
  "proc-macro2",
