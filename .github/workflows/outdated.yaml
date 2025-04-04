@@ -22,13 +22,11 @@ jobs:
 
       - name: Install Rust (stable)
         uses: dtolnay/rust-toolchain@stable
-        with:
-          toolchain: stable
 
       - uses: Swatinem/rust-cache@v2
 
       - name: Install cargo-outdated
-        run: cargo install cargo-outdated
+        run: cargo install --git https://github.com/kioqq/cargo-outdated.git
 
       - name: Check outdated
         run: cargo outdated
