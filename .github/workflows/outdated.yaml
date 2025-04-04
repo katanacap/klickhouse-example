@@ -29,4 +29,4 @@ jobs:
         run: cargo install --git https://github.com/kioqq/cargo-outdated.git
 
       - name: Check outdated
-        run: cargo outdated
+        run: cargo outdated -R
