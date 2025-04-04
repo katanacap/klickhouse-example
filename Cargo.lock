@@ -1365,7 +1365,7 @@ dependencies = [
  "compiler-tools-derive",
  "futures-util",
  "indexmap",
- "klickhouse_derive 0.14.2 (git+https://github.com/katanacap/klickhouse.git?tag=v1.14.4)",
+ "klickhouse_derive",
  "log",
  "lz4",
  "paste",
@@ -1395,7 +1395,7 @@ dependencies = [
  "futures",
  "futures-util",
  "klickhouse",
- "klickhouse_derive 0.14.2 (git+https://github.com/katanacap/klickhouse.git?tag=v1.14.2)",
+ "klickhouse_derive",
  "pretty_assertions",
  "ring",
  "serde",
@@ -1406,16 +1406,6 @@ dependencies = [
  "tracing",
  "tracing-actix-web",
  "tracing-subscriber",
-]
-
-[[package]]
-name = "klickhouse_derive"
-version = "0.14.2"
-source = "git+https://github.com/katanacap/klickhouse.git?tag=v1.14.2#fd33ed7c88afadb795be86501dec3ebe17675793"
-dependencies = [
- "proc-macro2",
- "quote",
- "syn",
 ]
 
 [[package]]
