@@ -37,7 +37,7 @@ confik = "0.14.0"
 ## json
 serde = { version = "1.0.219", features = ["derive"] }
 serde_json = "1.0.140"
-sonic-rs = "0.5.0"
+sonic-rs = "0.5.1"
 
 ## another
 chrono = { version = "0.4.41", features = ["serde"] }
