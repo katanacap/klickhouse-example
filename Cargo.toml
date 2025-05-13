@@ -19,7 +19,7 @@ klickhouse_derive = { git = "https://github.com/katanacap/klickhouse.git", tag =
 tokio = { version = "1.45.0", features = ["full"] }
 
 ## actix
-actix-web = "4.10.2"
+actix-web = "4.11.0"
 actix-web-prom = "0.10.0"
 
 ## tracing
