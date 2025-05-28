@@ -1302,9 +1302,9 @@ checksum = "ce23b50ad8242c51a442f3ff322d56b02f08852c77e4c0b4d3fd684abc89c683"
 
 [[package]]
 name = "indexmap"
-version = "2.8.0"
+version = "2.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3954d50fe15b02142bf25d3b8bdadb634ec3948f103d04ffe3031bc8fe9d7058"
+checksum = "cea70ddb795996207ad57735b50c5982d8844f38ba9ee5f1aedcfb708a2aa11e"
 dependencies = [
  "equivalent",
  "hashbrown",
@@ -1353,7 +1353,7 @@ dependencies = [
 [[package]]
 name = "klickhouse"
 version = "0.14.2"
-source = "git+https://github.com/katanacap/klickhouse.git?tag=v1.14.4#5ca3e2834d35b32a2255c1a5e2a225df7d3c20bb"
+source = "git+https://github.com/katanacap/klickhouse.git?tag=v1.14.5#579dca3bc358df347a932393cad3c18b5c9c8fb0"
 dependencies = [
  "async-trait",
  "bb8",
@@ -1365,7 +1365,7 @@ dependencies = [
  "compiler-tools-derive",
  "futures-util",
  "indexmap",
- "klickhouse_derive",
+ "klickhouse_derive 0.14.2 (git+https://github.com/katanacap/klickhouse.git?tag=v1.14.5)",
  "log",
  "lz4",
  "paste",
@@ -1395,7 +1395,7 @@ dependencies = [
  "futures",
  "futures-util",
  "klickhouse",
- "klickhouse_derive",
+ "klickhouse_derive 0.14.2 (git+https://github.com/katanacap/klickhouse.git?tag=v1.14.4)",
  "pretty_assertions",
  "ring",
  "serde",
@@ -1412,6 +1412,16 @@ dependencies = [
 name = "klickhouse_derive"
 version = "0.14.2"
 source = "git+https://github.com/katanacap/klickhouse.git?tag=v1.14.4#5ca3e2834d35b32a2255c1a5e2a225df7d3c20bb"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
+name = "klickhouse_derive"
+version = "0.14.2"
+source = "git+https://github.com/katanacap/klickhouse.git?tag=v1.14.5#579dca3bc358df347a932393cad3c18b5c9c8fb0"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -1819,9 +1829,9 @@ dependencies = [
 
 [[package]]
 name = "proc-macro2"
-version = "1.0.94"
+version = "1.0.95"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a31971752e70b8b2686d7e46ec17fb38dad4051d94024c88df49b667caea9c84"
+checksum = "02b3e5e68a3a1a02aad3ec490a98007cbc13c37cbe84a3cd7b8e406d76e7f778"
 dependencies = [
  "unicode-ident",
 ]
@@ -2087,9 +2097,12 @@ dependencies = [
 
 [[package]]
 name = "rustls-pki-types"
-version = "1.11.0"
+version = "1.12.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "917ce264624a4b4db1c364dcc35bfca9ded014d0a958cd47ad3e960e988ea51c"
+checksum = "229a4a4c221013e7e1f1a043678c5cc39fe5171437c88fb47151a21e6f5b5c79"
+dependencies = [
+ "zeroize",
+]
 
 [[package]]
 name = "rustls-webpki"
@@ -2317,9 +2330,9 @@ checksum = "13c2bddecc57b384dee18652358fb23172facb8a2c51ccc10d74c157bdea3292"
 
 [[package]]
 name = "syn"
-version = "2.0.100"
+version = "2.0.101"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b09a44accad81e1ba1cd74a32461ba89dee89095ba17b32f5d03683b1b1fc2a0"
+checksum = "8ce2b7fc941b3a24138a0a7cf8e858bfc6a992e7978a068a5c760deb0ed43caf"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -2666,12 +2679,14 @@ checksum = "06abde3611657adf66d383f00b093d7faecc7fa57071cce2578660c9f1010821"
 
 [[package]]
 name = "uuid"
-version = "1.16.0"
+version = "1.17.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "458f7a779bf54acc9f347480ac654f68407d3aab21269a6e3c9f922acd9e2da9"
+checksum = "3cf4199d1e5d15ddd86a694e4d0dffa9c323ce759fea589f00fef9d81cc1931d"
 dependencies = [
  "getrandom 0.3.1",
+ "js-sys",
  "serde",
+ "wasm-bindgen",
 ]
 
 [[package]]
