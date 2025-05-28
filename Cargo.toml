@@ -41,7 +41,7 @@ sonic-rs = "0.5.1"
 
 ## another
 chrono = { version = "0.4.41", features = ["serde"] }
-clap = { version = "4.5.38", features = ["derive"] }
+clap = { version = "4.5.39", features = ["derive"] }
 futures = "0.3.31"
 futures-util = "0.3.31"
 
