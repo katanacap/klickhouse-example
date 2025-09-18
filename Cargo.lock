@@ -1376,7 +1376,7 @@ dependencies = [
  "compiler-tools-derive",
  "futures-util",
  "indexmap",
- "klickhouse_derive",
+ "klickhouse_derive 0.14.2 (git+https://github.com/katanacap/klickhouse.git?tag=v1.14.5)",
  "log",
  "lz4",
  "paste",
@@ -1406,7 +1406,7 @@ dependencies = [
  "futures",
  "futures-util",
  "klickhouse",
- "klickhouse_derive",
+ "klickhouse_derive 0.14.2 (git+https://github.com/katanacap/klickhouse.git?tag=v1.14.7)",
  "pretty_assertions",
  "ring",
  "serde",
@@ -1423,6 +1423,16 @@ dependencies = [
 name = "klickhouse_derive"
 version = "0.14.2"
 source = "git+https://github.com/katanacap/klickhouse.git?tag=v1.14.5#579dca3bc358df347a932393cad3c18b5c9c8fb0"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
+name = "klickhouse_derive"
+version = "0.14.2"
+source = "git+https://github.com/katanacap/klickhouse.git?tag=v1.14.7#2113d3d4cf09c5b60fac5055ede79a62893363e5"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -1830,9 +1840,9 @@ dependencies = [
 
 [[package]]
 name = "proc-macro2"
-version = "1.0.95"
+version = "1.0.101"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "02b3e5e68a3a1a02aad3ec490a98007cbc13c37cbe84a3cd7b8e406d76e7f778"
+checksum = "89ae43fd86e4158d6db51ad8e2b80f313af9cc74f5c0e03ccb87de09998732de"
 dependencies = [
  "unicode-ident",
 ]
@@ -2341,9 +2351,9 @@ checksum = "13c2bddecc57b384dee18652358fb23172facb8a2c51ccc10d74c157bdea3292"
 
 [[package]]
 name = "syn"
-version = "2.0.101"
+version = "2.0.106"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8ce2b7fc941b3a24138a0a7cf8e858bfc6a992e7978a068a5c760deb0ed43caf"
+checksum = "ede7c438028d4436d71104916910f5bb611972c5cfd7f89b8300a8186e6fada6"
 dependencies = [
  "proc-macro2",
  "quote",
