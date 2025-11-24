@@ -12,8 +12,8 @@ name = "klickhouse_example"
 path = "src/main.rs"
 
 [dependencies]
-klickhouse = { git = "https://github.com/katanacap/klickhouse.git", tag = "v1.14.5", package = "klickhouse", features = ["default", "bb8", "tls"] }
-klickhouse_derive = { git = "https://github.com/katanacap/klickhouse.git", tag = "v1.14.5", package = "klickhouse_derive" }
+klickhouse = { git = "https://github.com/katanacap/klickhouse.git", tag = "v1.14.9", package = "klickhouse", features = ["default", "bb8", "tls"] }
+klickhouse_derive = { git = "https://github.com/katanacap/klickhouse.git", tag = "v1.14.9", package = "klickhouse_derive" }
 
 ## tokio
 tokio = { version = "1.47.1", features = ["full"] }
@@ -24,7 +24,7 @@ actix-web-prom = "0.10.0"
 
 ## tracing
 tracing = "0.1.41"
-tracing-subscriber = "0.3.19"
+tracing-subscriber = "0.3.20"
 tracing-actix-web = "0.7.19"
 
 ## error handling
@@ -49,7 +49,7 @@ ring = "=0.17.14"
 
 
 [dev-dependencies]
-actix-web-test = "0.0.1"
+# actix-web-test = "0.0.1"
 pretty_assertions = "1.4.1"
 
 [profile.dev]
