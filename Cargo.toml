@@ -23,7 +23,7 @@ actix-web = "4.12.1"
 actix-web-prom = "0.10.0"
 
 ## tracing
-tracing = "0.1.42"
+tracing = "0.1.43"
 tracing-subscriber = "0.3.22"
 tracing-actix-web = "0.7.19"
 
