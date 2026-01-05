@@ -16,7 +16,7 @@ klickhouse = { git = "https://github.com/katanacap/klickhouse.git", tag = "v1.14
 klickhouse_derive = { git = "https://github.com/katanacap/klickhouse.git", tag = "v1.14.9", package = "klickhouse_derive" }
 
 ## tokio
-tokio = { version = "1.47.1", features = ["full"] }
+tokio = { version = "1.49.0", features = ["full"] }
 
 ## actix
 actix-web = "4.12.1"
