@@ -14,11 +14,7 @@
       pkgs.cargo-outdated
       pkgs.cargo-nextest
       pkgs.cargo-audit
-  ] ++ lib.optionals pkgs.stdenv.isDarwin (with pkgs.darwin.apple_sdk; [
-       frameworks.SystemConfiguration
-       frameworks.Security
-       frameworks.CoreFoundation
-     ]);
+  ];
 
   # https://devenv.sh/languages/
   languages.nix.enable = true;

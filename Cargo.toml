@@ -12,8 +12,8 @@ name = "klickhouse_example"
 path = "src/main.rs"
 
 [dependencies]
-klickhouse = { git = "https://github.com/katanacap/klickhouse.git", tag = "v1.14.9", package = "klickhouse", features = ["default", "bb8", "tls"] }
-klickhouse_derive = { git = "https://github.com/katanacap/klickhouse.git", tag = "v1.14.9", package = "klickhouse_derive" }
+klickhouse = { git = "https://github.com/katanacap/klickhouse.git", tag = "v1.50.0", package = "klickhouse", features = ["default", "bb8", "tls"] }
+klickhouse_derive = { git = "https://github.com/katanacap/klickhouse.git", tag = "v1.50.0", package = "klickhouse_derive" }
 
 ## tokio
 tokio = { version = "1.47.1", features = ["full"] }
