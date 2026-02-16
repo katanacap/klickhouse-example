@@ -43,7 +43,7 @@ sonic-rs = "0.5.3"
 chrono = { version = "0.4.43", features = ["serde"] }
 clap = { version = "4.5.48", features = ["derive"] }
 futures = "0.3.31"
-futures-util = "0.3.31"
+futures-util = "0.3.32"
 
 ring = "=0.17.14"
 
